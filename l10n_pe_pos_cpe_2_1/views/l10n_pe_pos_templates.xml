@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <template id="l10n_pe_pos_cpe_assets_backend" inherit_id="point_of_sale.assets" name="l10n_pe_pos_cpe_assets_backend">
+          <xpath expr="." position="inside">
+              <script type="text/javascript" src="/l10n_pe_pos_cpe_2_1/static/src/js/qrcode.js"></script>
+              <script type="text/javascript" src="/l10n_pe_pos_cpe_2_1/static/src/js/l10n_pe_pos_cpe.js"></script>
+            <link rel="stylesheet" href="/l10n_pe_pos_cpe_2_1/static/src/css/style.css"/>
+
+          </xpath>
+        </template>
+</odoo>

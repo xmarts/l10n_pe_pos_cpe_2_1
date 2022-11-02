@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="view_pos_config_form_2_1" model="ir.ui.view">
+        <field name="name">pos.config.form.view.inherit.l10n_pe_pos_2_1</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <h2>Facturación electrónica</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <div class="row mt16" title="Es el cliente que se asignará si no se selecciona alguno">
+                                        <label string="Cliente por defecto" for="journal_id" class="col-lg-3 o_light_label" widget="selection"/>
+                                        <field name="anonymous_id"/>
+                                    </div>
+                                    <div class="row mt16" title="Serie de boleta electrónica por defecto">
+                                        <label string="Serie de BV por defecto" for="sale_ticket_id" class="col-lg-3 o_light_label" widget="selection"/>
+                                        <field name="sale_ticket_id"/>
+                                    </div>
+                                    <div class="row mt16" title="Serie de factura electrónica por defecto">
+                                        <label string="Serie de FV por defecto" for="sale_invoice_id" class="col-lg-3 o_light_label" widget="selection"/>
+                                        <field name="sale_invoice_id"/>
+                                    </div>
+                                    <div class="row mt16" title="Serie de nota de credito de boleta electrónica por defecto">
+                                        <label string="Serie de NC BV por defecto" for="boleta_credit_note_id" class="col-lg-3 o_light_label" widget="selection"/>
+                                        <field name="boleta_credit_note_id"/>
+                                    </div>
+                                    <div class="row mt16" title="Serie de nota de credito de factura electrónica por defecto">
+                                        <label string="Serie de NC FV por defecto" for="invoice_credit_note_id" class="col-lg-3 o_light_label" widget="selection"/>
+                                        <field name="invoice_credit_note_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <div class="o_setting_left_pane">
+                                      <field name="is_electronic"/>
+                                  </div>
+                                    <div class="row mt16" title="Sitio web de la tienda">
+                                        <label string="Sitio Web" for="website" class="col-lg-3 o_light_label"/>
+                                        <field name="website"/>
+                                    </div>
+                                    <div class="row mt16" title="Serie de la máquina registradora">
+                                        <label string="Serie de la máquina registradora" for="serie_maquina_registradora" class="col-lg-3 o_light_label"/>
+                                        <field name="serie_maquina_registradora"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_account_form_pos" model="ir.ui.view">
+        <field name="name">account.account.form.l10n_pe_pos_cpe</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='deprecated']" position="before">
+              <field name="reconcile_pos"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pos_pos_form_view_inherit" model="ir.ui.view">
+            <field name="name">pos.order.inherited.view</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='refund']" position="attributes">
+                  <attribute name="attrs">{'invisible':['|',('state','=','draft'),('is_refund','=',True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                  <field name="is_refund" invisible="1"/>
+                  <field name="original_invoice_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_company_form_pe" model="ir.ui.view">
+            <field name="name">company.form.pe</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='favicon']" position="after" >
+                      <field name="logo_ticket"/>
+                        <field name="nro_resolucion"/>
+
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+</odoo>

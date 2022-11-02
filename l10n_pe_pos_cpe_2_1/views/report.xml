@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_cpe_account_move_base">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <center>
+                        <div style="width: 100%">
+                            <img t-if="o.company_id.logo_ticket" t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo_ticket)" style="width:270px"/>
+                        </div>
+                    </center>
+                    <div style="width:100%;text-align:center;font-size:13px;
+                        ">
+                        <div style="width:100%;text-align:center;"><t t-esc="o.store_id.street"/><!-- - <t t-esc="o.store_id.sunat_code"/--></div>
+                        <div style="width:100%;text-align:center;"><span t-esc="o.store_id.district_id.name and o.store_id.district_id.name.upper()"/> - <span t-esc="o.store_id.city_id.name and o.store_id.city_id.name.upper()"/> - <span t-esc="o.store_id.state_id.name and o.store_id.state_id.name.upper()"/></div>
+                    </div>
+                    <div style="width:100%;text-align:center;font-size:14px">
+                        Dom. Fiscal: <t t-esc="o.company_id.partner_id.street.title()"/>&amp;nbsp;<span t-esc="o.company_id.partner_id.get_complete_district().upper()"/>
+                    </div>
+                    <div style="width:100%;text-align:center">
+                        <table style="border:0px;width:100%;font-size:12px!important">
+                            <tr>
+                              <td t-if="o.store_id.phone" style="width:29%;text-align:left">
+                                Telf:<t t-esc="o.store_id.phone"/>
+                              </td>
+                              <td t-if="o.store_id.email" style="width:71%;text-align:right">
+                                Email:<t t-esc="o.store_id.email"/>
+                              </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="width: 100%; float: left">
+                        <div style='text-align:center'>
+                            <b>
+                                <span t-if="o.move_type == 'out_invoice' and (o.document_type_id.sunat_code.code =='01' and o.state in ['posted','posted'] )">FACTURA ELECTRÓNICA</span>
+                                <span t-if="o.move_type == 'out_invoice' and (o.document_type_id.sunat_code.code =='03' and o.state in ['posted','posted'] )">BOLETA DE VENTA ELECTRÓNICA</span>
+                                <span t-if="o.move_type == 'out_invoice' and (o.document_type_id.sunat_code.code =='08' and o.state in ['posted','posted'] )">NOTA DE DÉBITO ELECTRÓNICA</span>
+                                <span t-if="o.move_type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+                                <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                                <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                                <span t-if="o.move_type == 'out_refund'">NOTA DE CRÉDITO ELECTRÓNICA</span>
+                            </b>
+                        </div>
+                        <div class="pos-center-number" style='text-align:center'>
+                            <b><t t-esc="o.edocument_number"/></b>
+                        </div>
+                    </div>
+                    <div style='text-align:left;width:100%;font-size:13px'>
+                        <div><b>ADQUIRIENTE</b></div>
+                        <div>
+                            <span t-if="o.partner_id.doc_type.code == '1'">DNI: <span t-field="o.partner_id.doc_number"/></span>
+                            <span t-if="o.partner_id.doc_type.code == '6'">RUC: <span t-field="o.partner_id.doc_number"/></span>
+                            <span t-if="o.partner_id.doc_type.code == '4'">Carnet De Extranjería: <span t-field="o.partner_id.doc_number"/></span>
+                            <span t-if="o.partner_id.doc_type.code == '7'">Pasaporte: <span t-field="o.partner_id.doc_number"/></span>
+                        </div>
+                        <div><t t-esc="o.partner_id.name"/></div>
+                        <div><t t-esc="o.partner_id.street or 'LIMA-LIMA'"/></div>
+                        <div><b>FECHA EMISIÓN: </b><t t-esc="o.invoice_date and o.invoice_date.strftime('%d/%m/%Y') or ''"/></div>
+                        <div><b>FECHA DE VENC: </b><t t-esc="o.invoice_date_due and o.invoice_date_due.strftime('%d/%m/%Y') or ''"/></div>
+                        <div><b>MONEDA: </b><t t-esc="o.currency_id.plural_name"/></div>
+                        <div><b>IGV: </b>18%</div>
+                    </div>
+                    <table class='receipt-orderlines' style="padding:4px 5px 5px 5px;">
+                        <colgroup>
+                            <col width='65%' />
+                            <col width='10%' />
+                            <col width='25%' />
+                        </colgroup>
+                        <tr style=" border-top: 1px solid lightgray;height: 6px;"></tr>
+                        <tr style="border: 0px solid rgb(0, 0, 0); padding:4px 5px 5px 5px;font-size:13px">
+                            <th><b>[CANT.] DESCRIPCIÓN</b></th>
+                            <th style="text-align:right"><b>P/U</b></th>
+                            <th style="text-align:right"><b>TOTAL</b></th>
+                        </tr>
+                        <tr t-foreach="o.invoice_line_ids" t-as="orderline">
+                            <t t-if="not orderline.display_type">
+                                <td style="font-size:11px">
+                                    <b>[<t t-esc="'%.0f' % orderline.quantity"/>]</b> NIU <t t-esc="orderline.product_id.barcode and orderline.product_id.barcode[-6] or ''"/> <t t-esc="orderline.product_id.display_name"/><br/>
+                                    *Valor Unitario: <span t-esc="'%.3f' % orderline.unit_value_fe"/>
+                                </td>
+                                <td style="text-align:right;font-size:11px">
+                                    <span t-esc="'%.3f' % orderline.unit_sale_price" />
+                                </td>
+                                <td style='text-align:right;font-size:11px'>
+                                    <span t-esc="'%.2f' % orderline.price_total"/>
+                                </td>
+                            </t>
+                        </tr>
+                    </table>
+                    <table class='receipt-total pos-receipt-amount' style="font-size:13px;font-weight:bold" width="100%" >
+                        <colgroup>
+                            <col width='75%' />
+                            <col width='25%' />
+                        </colgroup>
+                        <tr style=" border-bottom: 0px solid lightgray;height: 2px;"></tr>
+                        <tr>
+                            <td style="text-align:right;padding: 1px 0px 1px 0px;">
+                                <span>DESCUENTO </span>
+                            </td>
+                            <td style='text-align:right'>
+                                <div class="exoneradas">
+                                    <span t-field="o.discount_amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;padding: 1px 0px 1px 0px;">
+                                <span>GRAVADA </span>
+                            </td>
+                            <td style='text-align:right'>
+                                <div class="gravadas">
+                                    <span t-field="o.afecto_amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;padding: 1px 0px 1px 0px;">
+                                <span>IGV </span>
+                            </td>
+                            <td style='text-align:right'>
+                                <div class="total_igv">
+                                    <span t-field="o.igv_amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td style="text-align:right;padding: 1px 0px 1px 0px;">
+                                <span>ICBPER </span>
+                            </td>
+                            <td style='text-align:right'>
+                                <div class="total_icbper">
+                                    <span t-field="o.icbper_amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="emph">
+                            <td style="text-align:right;padding: 1px 0px 1px 0px;">
+                                TOTAL
+                            </td>
+                            <td style='text-align:right'>
+                                <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr style=" border-bottom: 0px solid lightgray;height: 2px;"></tr>
+                        <tr>
+                            <td style="text-align:center">
+                                <div style="font-size:13px;padding: 1px 14px 0px 14px;">
+                                    <div style="text-align:center"><b>IMPORTE EN LETRAS: </b><span t-esc="o.legend.upper()"/></div>
+                                    <div t-if="o.move_type == 'out_refund' or o.move_type == 'out_invoice' and (o.document_type_id.sunat_code.code =='08' )">
+
+
+
+
+                                        <div style="text-align:left"><b>MOTIVO DE EMISIÓN: </b><br/>
+                                            <t t-if="o.move_type == 'out_refund'">
+                                                <span t-esc="o.catalog_9_id.name"/>
+                                            </t>
+                                            <t t-if="o.document_type_id and o.document_type_id.sunat_code.code =='08'">
+                                                <span t-esc="o.catalog_10_id.name"/>
+                                            </t>
+                                            <div style="text-align:left"><b>DOCUMENTO RELACIONADO: </b><br/>
+                                             <t t-if="o.move_type == 'out_refund'">
+                                                <t t-esc="o.reversed_entry_id.name"/>
+                                            </t>
+                                            <t t-if="o.move_type == 'out_invoice' and o.document_type_id.sunat_code.code =='08'">
+                                               <t t-esc="o.debit_origin_id.name"/>
+                                            </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <t t-else="">
+                                        <div style="text-align:left"><b>CONDICIONES DE PAGO: </b><t t-if="o.payment_sunat_type == 'cash'">Contado</t><t t-else="">Crédito</t></div>
+                                        <t t-if="o.installments_ids">
+                                          <t t-set="contint" t-value="0"/>
+                                          <table style="font-size:12px;text-align:center;width:100%;border:1px solid #dee2e6;border-collapse: collapse;" >
+                                            <thead>
+                                              <th style=" border: 1px solid black;">Cuotas</th>
+                                              <th style=" border: 1px solid black;">Monto</th>
+                                              <th style=" border: 1px solid black;">F. Vencimiento</th>
+                                            </thead>
+                                            <t t-foreach="o.installments_ids" t-as="ii">
+                                              <t t-set="contint" t-value="contint+1"/>
+                                              <tr>
+                                                <td style=" border: 1px solid black;"><t t-esc="contint"/></td>
+                                                <td style=" border: 1px solid black;"><t t-esc="ii.amount"/></td>
+                                                <td style=" border: 1px solid black;"><span t-field="ii.date" t-field-options='{"format": "dd/MM/yyyy"}'/></td>
+                                              </tr>
+                                            </t>
+                                          </table>
+                                        </t>
+                                        <div style="text-align:left">Vendedor: <t t-esc="o.invoice_user_id.name"/></div>
+
+                                        <t t-if="o.pos_order_ids">
+                                            <t t-foreach="o.pos_order_ids[0].payment_ids" t-as="line">
+                                                <div style="text-align:left"><b>MEDIO DE PAGO: </b><t t-esc="line.payment_method_id.name"/> / <t t-esc="line.amount"/></div>
+                                            </t>
+                                        </t>
+
+                                    </t>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style=" border-bottom: 1px solid lightgray;height: 6px;"></tr>
+                    </table>
+
+                    <div style="text-align:center;font-size:12px;padding: 0px 14px 0px 14px;">
+                        <div >
+                            Representación impresa de la
+                            <span t-if="o.move_type == 'out_invoice' and (o.document_type_id.sunat_code.code =='01' and o.state in ['posted','posted'] )">FACTURA ELECTRÓNICA</span>
+                            <span t-if="o.move_type == 'out_invoice' and (o.document_type_id.sunat_code.code =='03' and o.state in ['posted','posted'] )">BOLETA DE VENTA ELECTRÓNICA</span>
+                            <span t-if="o.move_type == 'out_invoice' and (o.document_type_id.sunat_code.code =='08' and o.state in ['posted','posted'] )">NOTA DE DÉBITO ELECTRÓNICA</span>
+                            <span t-if="o.move_type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+                            <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                            <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                            <span t-if="o.move_type == 'out_refund'">NOTA DE CRÉDITO ELECTRÓNICA</span>
+                            visita <b>www.nubefact.com/</b><t t-esc="o.company_id.vat"/>
+                        </div>
+                        <div >
+                          Autorizado mediante resolución de intendencia <br/>No <b><t t-esc="o.company_id.nro_resolucion"/></b>
+                        </div>
+                        <div class="digest">
+                          <b>Resumen: </b><br/><t t-esc = "o.digest_value"></t><br/>
+                        </div>
+                        <div class="qr_code">
+                            <img t-att-src="'data:image/png;base64,%s' % to_text(o.qr_code)" style="max-height: 180px;"/>
+                        </div>
+                    </div>
+                    <div style="text-align:center;font-size:12px;padding: 0px 14px 0px 14px;">
+                        <div>Emitido desde www.nubefact.com</div>
+                    </div>
+                </t>
+            </t>
+      </template>
+
+      <report
+          id="report_cpe_account_move"
+          model="account.move"
+          string="Ticket"
+          report_type="qweb-pdf"
+          name="l10n_pe_pos_cpe_2_1.report_cpe_account_move_base"
+          file="l10n_pe_pos_cpe_2_1.report_cpe_account_move_base"
+      />
+
+      <record model="ir.actions.report" id="l10n_pe_pos_cpe_2_1.report_cpe_account_move">
+        <field name="paperformat_id" ref="l10n_pe_pos_cpe_2_1.paperformat_walon_ticket_move"/>
+        </record>
+
+    <!--record id="point_of_sale.pos_invoice_report" model="ir.actions.report">
+        <field name="report_name">l10n_pe_pos_cpe_2_1.report_cpe_account_move_base</field>
+    </record-->
+    
+    </data>
+</odoo>
