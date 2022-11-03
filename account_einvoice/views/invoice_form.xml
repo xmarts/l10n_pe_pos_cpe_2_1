@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    	<record model='ir.ui.view' id='invoice_form_einvoice'>
+			<field name='name'>account.move.form.einvoice</field>
+			<field name='model'>account.move</field>
+			<field name='inherit_id' ref='account.view_move_form'/>
+			<field name='arch' type='xml'>
+				<!-- xpath expr="//sheet" position="before">
+                    <button string="Revertir facturación"
+                            name="action_invoice_reverse_saleorder"
+                            help="Revierte la facturación de los pedidos de ventas"
+                            confirm="¿Esta seguro de realizar esta operación?"
+                            class="oe_highlight"
+                            groups=""
+                            type="object"
+                    />
+                </xpath -->
+                <!--xpath expr="//field[@name='partner_id']" position="before">
+                	<field name="edocument_number" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
+                </xpath-->
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="document_type_id"  options="{'no_create': True, 'no_create_edit':True}"  attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" domain="[('move_type','=',move_type),('visible_document','=','factura')]"/>
+					
+					<field name="is_boleta" invisible="1"/>
+					<field name="is_debit_note" invisible="1"/>
+					<field name="is_credit_note" invisible="1"/>
+					<field name="glosa"/>
+				</xpath>
+				<xpath expr="//field[@name='fiscal_position_id']" position="after">
+					<field name="catalog_15" invisible="1"/>
+				</xpath>
+				<xpath expr="//div[@name='journal_div']" position="after">
+					<field name="catalog_9_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'invisible': [('is_credit_note','!=', True)],'required': [('is_credit_note','=', True)]}"/>
+					<field name="catalog_10_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'invisible': [('is_debit_note','!=', True)],'required': [('is_debit_note','=', True)]}"/>
+					<field name="type_journal" invisible="1"/>
+					<field name="inafecto_amount_total" invisible="1"/>
+					<field name="exonerated_amount_total" invisible="1"/>
+					<field name="afecto_amount_total" invisible="1"/>
+					<field name="ono_amount_total" invisible="1"/>
+					<field name="igv_amount_total" invisible="1"/>
+					<field name="isc_amount_total" invisible="1"/>
+					<field name="othertaxes_amount_total" invisible="1"/>
+					<field name="othercharges_amount_total" invisible="1"/>
+					<field name="discount_amount_total" invisible="1"/>
+					<field name="legend" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='invoice_origin']" position="after">
+					<!--field name="invoice_reference_id" attrs="{'invisible': [('is_debit_note','=', False)]}" domain="[('move_type','=','out_invoice'),('partner_id','=',partner_id)]"/-->
+					<field name="reversed_entry_id"/>
+					<field name="type_origin" attrs="{'invisible': [('reversed_entry_id','=', False)]}"/>
+				</xpath>
+				<xpath expr="//field[@name='amount_by_group']" position="after">
+					<field name="global_discount" string="Descuento Global" attrs="{'readonly':[('state','!=','draft')],'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />
+				</xpath>
+				<xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
+					<field name="reference_value_unit" attrs="{'column_invisible': [('parent.move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" optional="hide"/>
+				</xpath>
+				<xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_uom_id']" position="replace">
+					<field name="product_uom_id"/>
+				</xpath>
+				<xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="after">
+					<field name="price_type_code" invisible="1"/>
+					<field name="unit_value_fe" invisible="1"/>
+					<field name="amount_item_discount" invisible="1"/>
+					<field name="igv_sale_value" invisible="1"/>
+					<field name="isc_sale_value" invisible="1"/>
+					<field name="item_discount_indicator" invisible="1"/>
+					<field name="unit_sale_price" invisible="1"/>
+					<field name="igv_sale_code" invisible="1"/>
+					<field name="isc_sale_code" invisible="1"/>
+					<field name="ono_amount_subtotal" invisible="1"/>
+				</xpath>
+				<!--xpath expr="//page[@name='other_info']" position="after">
+					<page string="Facturación electrónica" name="e_invoice">
+						
+						<group>
+						<field name="procesado"/>
+						<field name="status_einvoice"/>
+						</group>
+						<group>
+						<field name="rvalue"/>
+						<field name="digest_value"/>
+						</group>
+					</page>
+				</xpath-->
+			</field>
+		</record>
+		
+		<record model='ir.ui.view' id='invoice_tree_einvoice'>
+			<field name='name'>account.invoice.tree.einvoice</field>
+			<field name='model'>account.move</field>
+			<field name='inherit_id' ref='account.view_invoice_tree'/>
+			<field name='arch' type='xml'>
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="edocument_number" invisible="1"/>
+					<field name="supplier_invoice_number" invisible="context.get('default_move_type') not in ('in_invoice', 'in_refund','in_receipt')" string="Número de comprobante"/>
+				</xpath>
+			</field>
+		</record>
+
+		<!--record model='ir.ui.view' id='invoice_line_tree_einvoice'>
+			<field name='name'>account.invoice.line.tree.einvoice</field>
+			<field name='model'>account.invoice.line</field>
+			<field name='inherit_id' ref='account.view_invoice_line_tree'/>
+			<field name='arch' type='xml'>
+				<xpath expr="//field[@name='uom_id']" position="replace">
+					<field name="uom_id"/>
+				</xpath>
+			</field>
+		</record-->
+		
+		<record model='ir.ui.view' id='view_tax_form_einvoice'>
+			<field name='name'>view.tax.form.einvoice</field>
+			<field name='model'>account.tax</field>
+			<field name='inherit_id' ref='account.view_tax_form'/>
+			<field name='arch' type='xml'>
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="is_igv" />
+					<field name="catalog_7_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'invisible': [('is_igv', '=', False)]}"/>
+				</xpath>
+				<xpath expr="//field[@name='type_tax_use']" position="after">
+					<field name="is_isc"/>
+					<field name="catalog_8_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'invisible': [('is_isc', '=', False)]}"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- TODO: check if we need this >
+        <record model="ir.values" id="invoice_refund_multiple">
+            <field name="model_id" ref="account.model_account_invoice" />
+            <field name="name">Refund Invoices</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('account_einvoice.action_account_invoice_refund_multi'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+        </record-->
+        
+        
+        <!-- Vista form facturas de compras -->
+        
+        <record model='ir.ui.view' id='invoice_form_einvoice_supplier'>
+			<field name='name'>account.invoice.form.einvoice.supplier</field>
+			<field name='model'>account.move</field>
+			<field name='inherit_id' ref='account.view_move_form'/>
+			<field name='arch' type='xml'>
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="supplier_proof_series" attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt'))]}"/>
+                    <field name="supplier_proof_number" attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt'))]}"/>
+                    <field name="supplier_invoice_number" attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt'))]}"/>                    
+				</xpath>
+				<xpath expr="//div[@name='journal_div']" position="after">
+					<field name="sunat_code_purchase" attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt'))]}"/>
+				</xpath>
+        	</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="sunat_document_type_list_action">
+            <field name="name">Tipos de documentos</field>
+            <field name="res_model">sunat.document.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Cree el primer registro
+                </p>
+            </field>
+        </record>
+
+    <menuitem id="menu_sunat_tipo_documento" parent="account.menu_finance_configuration" name="Tipos de documentos" action="sunat_document_type_list_action" sequence="98"/>
+
+	<record model='ir.ui.view' id='table_ple_10_form_inherit'>
+		<field name='name'>table.ple.10.form.inherit</field>
+		<field name='model'>table.ple.10</field>
+		<field name='inherit_id' ref='tables_ple.view_table_ple_10_form'/>
+		<field name='arch' type='xml'>
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="move_type"/>
+			</xpath>
+    	</field>
+	</record>
+
+	<record model='ir.ui.view' id='sunat_document_type_form_inherit'>
+		<field name='name'>sunat.document.type.form.inherit</field>
+		<field name='model'>sunat.document.type</field>
+		<field name='inherit_id' ref='sunat_document_type.view_sunat_document_type'/>
+		<field name='arch' type='xml'>
+			<xpath expr="//field[@name='company_id']" position="after">
+				<field name="lower_range" attrs="{'invisible':[('is_cpe','=',False)]}"/>
+				<field name="top_range" attrs="{'invisible':[('is_cpe','=',False)]}"/>
+				<field name="authorization_number" attrs="{'invisible':[('is_cpe','=',False)]}"/>
+			</xpath>
+    	</field>
+	</record>
+
+	<record model='ir.ui.view' id='account_move_reversal_form_inherit'>
+		<field name='name'>account.move.reversal.form.inherit</field>
+		<field name='model'>account.move.reversal</field>
+		<field name='inherit_id' ref='account.view_account_move_reversal'/>
+		<field name='arch' type='xml'>
+			<xpath expr="//field[@name='refund_method']" position="after">
+				<div class="" colspan="4" style="font-weight:bold">
+                   Reembolso
+                </div>
+			</xpath>
+			<xpath expr="//field[@name='refund_method']" position="attributes">
+				<attribute name="invisible">
+					1
+				</attribute>
+			</xpath>
+    	</field>
+	</record>
+
+    </data>
+</odoo>

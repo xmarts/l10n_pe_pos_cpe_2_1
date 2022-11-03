@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+<record id="catalog_9_01" model="catalog.9">
+    <field name="code"><![CDATA[01]]></field>
+    <field name="name"><![CDATA[Anulación de la operación]]></field>
+</record>
+
+<record id="catalog_9_02" model="catalog.9">
+    <field name="code"><![CDATA[02]]></field>
+    <field name="name"><![CDATA[Anulación por error en el RUC]]></field>
+</record>
+
+<record id="catalog_9_03" model="catalog.9">
+    <field name="code"><![CDATA[03]]></field>
+    <field name="name"><![CDATA[Corrección por error en la descripción]]></field>
+</record>
+
+<record id="catalog_9_04" model="catalog.9">
+    <field name="code"><![CDATA[04]]></field>
+    <field name="name"><![CDATA[Descuento global]]></field>
+</record>
+
+<record id="catalog_9_05" model="catalog.9">
+    <field name="code"><![CDATA[05]]></field>
+    <field name="name"><![CDATA[Descuento por ítem]]></field>
+</record>
+
+<record id="catalog_9_06" model="catalog.9">
+    <field name="code"><![CDATA[06]]></field>
+    <field name="name"><![CDATA[Devolución total]]></field>
+</record>
+
+<record id="catalog_9_07" model="catalog.9">
+    <field name="code"><![CDATA[07]]></field>
+    <field name="name"><![CDATA[Devolución por ítem]]></field>
+</record>
+
+<record id="catalog_9_08" model="catalog.9">
+    <field name="code"><![CDATA[08]]></field>
+    <field name="name"><![CDATA[Bonificación]]></field>
+</record>
+
+<record id="catalog_9_09" model="catalog.9">
+    <field name="code"><![CDATA[09]]></field>
+    <field name="name"><![CDATA[Disminución en el valor]]></field>
+</record>
+
+<record id="catalog_9_10" model="catalog.9">
+    <field name="code"><![CDATA[10]]></field>
+    <field name="name"><![CDATA[Otros conceptos]]></field>
+</record>
+
+<record id="catalog_9_11" model="catalog.9">
+    <field name="code"><![CDATA[11]]></field>
+    <field name="name"><![CDATA[Por eventos posteriores al inicio del traslado de los bienes (aplicable para factura que sustenta traslado de bienes)]]></field>
+</record>
+
+
+    </data>
+</odoo>

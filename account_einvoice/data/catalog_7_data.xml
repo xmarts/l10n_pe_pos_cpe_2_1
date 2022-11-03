@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+<record id="catalog_7_10" model="catalog.7">
+    <field name="code"><![CDATA[10]]></field>
+    <field name="name"><![CDATA[Gravado -  Operación Onerosa]]></field>
+    <field name="description"><![CDATA[Indicador que la operación se encuentra dentro del ámbito de aplicación del impuesto.]]></field>
+</record>
+
+<record id="catalog_7_11" model="catalog.7">
+    <field name="code"><![CDATA[11]]></field>
+    <field name="name"><![CDATA[Gravado – Retiro por premio]]></field>
+    <field name="description"><![CDATA[Indicador de transferencia de bienes a terceros, que no son bienes producidos o comercializados por el transferente y que están destinados a promocionar o fidelizar un producto o marca a través de sorteos, concursos, loterías, canjes. Transferencias señaladas en el primer acápite del primer párrafo del inciso c) del Numeral 3 del Art. 2° del Reglamento de la Ley del IGV. La afectación al IGV corresponde cuando se ha sobrepasado el límite establecido en el cuarto acápite del segundo párrafo del Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_12" model="catalog.7">
+    <field name="code"><![CDATA[12]]></field>
+    <field name="name"><![CDATA[Gravado – Retiro por donación]]></field>
+    <field name="description"><![CDATA[Indicador de transferencia de bienes a terceros con un fin altruista.]]></field>
+</record>
+
+<record id="catalog_7_13" model="catalog.7">
+    <field name="code"><![CDATA[13]]></field>
+    <field name="name"><![CDATA[Gravado – Retiro]]></field>
+    <field name="description"><![CDATA[Indicador para todos aquellos retiros de bienes que no tengan una clasificación expresa en esta tabla, por los cuales existe obligación de emitir un comprobante de pago y que para efectos del IGV se consideran venta en atención a lo dispuesto en el Numeral 2 del Art. 3° del TUO de la Ley del IGV y el Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_14" model="catalog.7">
+    <field name="code"><![CDATA[14]]></field>
+    <field name="name"><![CDATA[Gravado – Retiro por publicidad]]></field>
+    <field name="description"><![CDATA[Indicador de transferencia de bienes a clientes o potenciales clientes de bienes producidos o comercializados por el transferente, destinados a promocionar un producto o una marca a través de entregas de muestras, degustaciones.
+Transferencias señaladas en el primer acápite del primer párrafo del inciso c) del Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.
+La afectación al IGV corresponde cuando se ha sobrepasado el límite establecido en el cuarto acápite del segundo párrafo del Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_15" model="catalog.7">
+    <field name="code"><![CDATA[15]]></field>
+    <field name="name"><![CDATA[Gravado – Bonificaciones]]></field>
+    <field name="description"><![CDATA[Indicador de transferencia de bienes a clientes y cuya entrega está directamente relacionado con la(s) compra(s), pues a diferencia de la publicidad, la facturación de estos retiros se encuentra en el mismo comprobante de pago de la venta.
+La afectación al IGV corresponde cuando se ha sobrepasado el límite establecido en el cuarto acápite del segundo párrafo del Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_16" model="catalog.7">
+    <field name="code"><![CDATA[16]]></field>
+    <field name="name"><![CDATA[Gravado – Retiro por entrega a trabajadores]]></field>
+    <field name="description"><![CDATA[Identificación de aquellos bienes entregados a los trabajadores y que son de libre disposición y no son necesarios para la prestación de sus servicios.
+Transferencias señaladas en el cuarto acápite del primer párrafo del inciso c) del Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_20" model="catalog.7">
+    <field name="code"><![CDATA[20]]></field>
+    <field name="name"><![CDATA[Exonerado - Operación Onerosa]]></field>
+    <field name="description"><![CDATA[Indicador general de la línea, tratándose de operaciones que se encuentran dentro del ámbito de aplicación del impuesto pero, de acuerdo a las normas vigentes, se excluyen del ámbito de aplicación en función a determinada(s) variable(s).]]></field>
+</record>
+
+<record id="catalog_7_30" model="catalog.7">
+    <field name="code"><![CDATA[30]]></field>
+    <field name="name"><![CDATA[Inafecto - Operación Onerosa]]></field>
+    <field name="description"><![CDATA[Indicador general de la línea, tratándose de operaciones que no se encuentran dentro del ámbito de aplicación del impuesto.]]></field>
+</record>
+
+<record id="catalog_7_31" model="catalog.7">
+    <field name="code"><![CDATA[31]]></field>
+    <field name="name"><![CDATA[Inafecto – Retiro por Bonificación]]></field>
+    <field name="description"><![CDATA[Indicador de transferencia de bienes a clientes y cuya entrega está directamente relacionado con la(s) compra(s)]]></field>
+</record>
+
+<record id="catalog_7_32" model="catalog.7">
+    <field name="code"><![CDATA[32]]></field>
+    <field name="name"><![CDATA[Inafecto – Retiro]]></field>
+    <field name="description"><![CDATA[Indicador para todos aquellos retiros de bienes que no tengan una clasificación expresa en esta tabla, por los cuales existe obligación de emitir un comprobante de pago y que para efectos del IGV no se consideran venta en atención a lo dispuesto en el Numeral 2 del Art. 3° del TUO de la Ley del IGV y el Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_33" model="catalog.7">
+    <field name="code"><![CDATA[33]]></field>
+    <field name="name"><![CDATA[Inafecto – Retiro por Muestras Médicas]]></field>
+    <field name="description"><![CDATA[Identificación de aquellos bienes entregados a título gratuito en calidad de muestras médicas, que no se consideran retiros conforme al Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_34" model="catalog.7">
+    <field name="code"><![CDATA[34]]></field>
+    <field name="name"><![CDATA[Inafecto -  Retiro por Convenio Colectivo]]></field>
+    <field name="description"><![CDATA[Identificación de aquellos bienes que son entregados a los trabajadores pactados por Convenios Colectivos y que se consideran condición de trabajo y que son indispensables para que el trabajador pueda prestar sus servicios, bienes que no se consideran retiros conforme al Numeral 2 del Art. 3° del TUO de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_35" model="catalog.7">
+    <field name="code"><![CDATA[35]]></field>
+    <field name="name"><![CDATA[Inafecto – Retiro por premio]]></field>
+    <field name="description"><![CDATA[Indicador de transferencia de bienes a terceros, que no son bienes producidos o comercializados por el transferente y que están destinados a promocionar o fidelizar un producto o marca a través de sorteos, concursos, loterías, canjes.
+Transferencias señaladas en el primer acápite del primer párrafo del inciso c) del Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_36" model="catalog.7">
+    <field name="code"><![CDATA[36]]></field>
+    <field name="name"><![CDATA[Inafecto -  Retiro por publicidad]]></field>
+    <field name="description"><![CDATA[Indicador de transferencia de bienes a clientes o potenciales clientes de bienes producidos o comercializados por el transferente, destinados a promocionar un producto o una marca a través de entregas de muestras, degustaciones.
+Transferencias señaladas en el primer acápite del primer párrafo del inciso c) del Numeral 3 del Art. 2° del Reglamento de la Ley del IGV.]]></field>
+</record>
+
+<record id="catalog_7_40" model="catalog.7">
+    <field name="code"><![CDATA[40]]></field>
+    <field name="name"><![CDATA[Exportación]]></field>
+    <field name="description"><![CDATA[Indicador general de la línea, para operaciones que no se encuentran afectas al impuesto al tratarse de transferencias que se realizan fuera del territorio nacional]]></field>
+</record>
+
+
+    </data>
+</odoo>

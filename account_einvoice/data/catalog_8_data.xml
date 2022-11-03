@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+<record id="catalog_8_01" model="catalog.8">
+    <field name="code"><![CDATA[01]]></field>
+    <field name="name"><![CDATA[Sistema al valor (Apéndice IV, lit. A – T.U.O IGV e ISC)]]></field>
+</record>
+
+<record id="catalog_8_02" model="catalog.8">
+    <field name="code"><![CDATA[02]]></field>
+    <field name="name"><![CDATA[Aplicación del Monto Fijo (Apéndice IV, lit. B – T.U.O IGV e ISC)]]></field>
+</record>
+
+<record id="catalog_8_03" model="catalog.8">
+    <field name="code"><![CDATA[03]]></field>
+    <field name="name"><![CDATA[Sistema de Precios de Venta al Público (Apéndice IV, lit. C – T.U.O IGV e ISC)]]></field>
+</record>
+
+
+    </data>
+</odoo>
